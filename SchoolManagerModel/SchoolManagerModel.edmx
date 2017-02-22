@@ -1,0 +1,637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PottersModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PottersModelStoreContainer">
+    <EntitySet Name="Accounts" EntityType="PottersModel.Store.Accounts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Parents" EntityType="PottersModel.Store.Parents" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudentClassBills" EntityType="PottersModel.Store.StudentClassBills" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudentClasses" EntityType="PottersModel.Store.StudentClasses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Students" EntityType="PottersModel.Store.Students" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Transactions" EntityType="PottersModel.Store.Transactions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AcademicSessions" EntityType="PottersModel.Store.AcademicSessions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Logins" EntityType="PottersModel.Store.Logins" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_AccountTransaction" Association="PottersModel.Store.FK_AccountTransaction">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ParentStudent" Association="PottersModel.Store.FK_ParentStudent">
+      <End Role="Parents" EntitySet="Parents" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="StudentAccount" Association="PottersModel.Store.StudentAccount">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Account" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="AcademicSessionTransaction" Association="PottersModel.Store.AcademicSessionTransaction">
+      <End Role="AcademicSession" EntitySet="AcademicSessions" />
+      <End Role="Transaction" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="StudentStudentClass" Association="PottersModel.Store.StudentStudentClass">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentClass" EntitySet="StudentClasses" />
+    </AssociationSet>
+    <AssociationSet Name="StudentClassStudentClassBill" Association="PottersModel.Store.StudentClassStudentClassBill">
+      <End Role="StudentClass" EntitySet="StudentClasses" />
+      <End Role="StudentClassBill" EntitySet="StudentClassBills" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="AccountNo" />
+    </Key>
+    <Property Name="AccountNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreditBalance" Type="float" Nullable="false" />
+    <Property Name="Fees" Type="float" Nullable="false" />
+    <Property Name="DebitBalance" Type="float" Nullable="false" />
+    <Property Name="BalanceLastTerm" Type="float" Nullable="false" />
+    <Property Name="Rebate" Type="float" Nullable="false" />
+    <Property Name="FullyPaid" Type="bit" Nullable="false" />
+    <Property Name="AccountNumber" Type="varchar" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="9" />
+    <Property Name="SchoolBusFees" Type="float" Nullable="false" />
+    <Property Name="Student_AdmissionNo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Parents">
+    <Key>
+      <PropertyRef Name="ParentId" />
+    </Key>
+    <Property Name="ParentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FatherTitle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FatherFirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FatherLastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FatherPhone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MotherTitle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MotherFirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MotherLastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MotherPhone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ParentIdentificationNo" Type="varchar(max)" StoreGeneratedPattern="Computed" Nullable="true" />
+  </EntityType>
+  <EntityType Name="StudentClassBills">
+    <Key>
+      <PropertyRef Name="StudentClassBillId" />
+    </Key>
+    <Property Name="StudentClassBillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SchoolFees" Type="float" Nullable="false" />
+    <Property Name="ExamFees" Type="float" Nullable="false" />
+    <Property Name="LessonFees" Type="float" Nullable="false" />
+    <Property Name="FirstAidFees" Type="float" Nullable="false" />
+    <Property Name="ComputerFees" Type="float" Nullable="true" />
+    <Property Name="MusicFees" Type="float" Nullable="true" />
+    <Property Name="TextBookFees" Type="float" Nullable="false" />
+    <Property Name="ExerciseBookFees" Type="float" Nullable="false" />
+    <Property Name="FormFees" Type="float" Nullable="false" />
+    <Property Name="UniformFees" Type="float" Nullable="false" />
+    <Property Name="CardiganFees" Type="float" Nullable="false" />
+    <Property Name="SportwearFees" Type="float" Nullable="false" />
+    <Property Name="AnniversaryTshirtFees" Type="float" Nullable="false" />
+    <Property Name="DevelopmentLevyFees" Type="float" Nullable="false" />
+    <Property Name="Total" Type="float" Nullable="false" />
+    <Property Name="StudentClass_StudentClassId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StudentClasses">
+    <Key>
+      <PropertyRef Name="StudentClassId" />
+    </Key>
+    <Property Name="StudentClassId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+    <Property Name="StudentClassBill_StudentClassBillId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="AdmissionNo" />
+    </Key>
+    <Property Name="AdmissionNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MiddleName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Class" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AdmissionDate" Type="datetime" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sex" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="true" />
+    <Property Name="PreviousSchool" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PreviousClassPreviousSchool" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ParentParentId" Type="int" Nullable="false" />
+    <Property Name="Religion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsOnSchoolBus" Type="bit" Nullable="true" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AcademicSessionEnrolled" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClassDivision" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="AdmissionStatus" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StudentClassStudentClassId" Type="int" Nullable="false" />
+    <Property Name="AdmissionNumber" Type="varchar(max)" StoreGeneratedPattern="Computed" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Transactions">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Amount" Type="float" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="TellerNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AccountAccountNo" Type="int" Nullable="false" />
+    <Property Name="AcademicSessionAcademicSessionId" Type="int" Nullable="false" />
+    <Property Name="TransactionIdentificationNo" Type="varchar(max)" StoreGeneratedPattern="Computed" Nullable="true" />
+  </EntityType>
+  <EntityType Name="AcademicSessions">
+    <Key>
+      <PropertyRef Name="AcademicSessionId" />
+    </Key>
+    <Property Name="AcademicSessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AcademicYear" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Term" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FeesPayable" Type="float" Nullable="false" />
+    <Property Name="FeesPaid" Type="float" Nullable="false" />
+    <Property Name="FeesUnpaid" Type="float" Nullable="false" />
+    <Property Name="NewStudentCount" Type="int" Nullable="false" />
+    <Property Name="IsInSession" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Logins">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Id" Type="char" Nullable="true" MaxLength="200" />
+    <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PasswordSalt" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_AccountTransaction">
+    <End Role="Accounts" Type="PottersModel.Store.Accounts" Multiplicity="1" />
+    <End Role="Transactions" Type="PottersModel.Store.Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="AccountNo" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="AccountAccountNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ParentStudent">
+    <End Role="Parents" Type="PottersModel.Store.Parents" Multiplicity="1" />
+    <End Role="Students" Type="PottersModel.Store.Students" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parents">
+        <PropertyRef Name="ParentId" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="ParentParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentAccount">
+    <End Role="Student" Type="PottersModel.Store.Students" Multiplicity="1" />
+    <End Role="Account" Type="PottersModel.Store.Accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="AdmissionNo" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="Student_AdmissionNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AcademicSessionTransaction">
+    <End Role="AcademicSession" Type="PottersModel.Store.AcademicSessions" Multiplicity="1" />
+    <End Role="Transaction" Type="PottersModel.Store.Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AcademicSession">
+        <PropertyRef Name="AcademicSessionId" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="AcademicSessionAcademicSessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentStudentClass">
+    <End Role="Student" Type="PottersModel.Store.Students" Multiplicity="*" />
+    <End Role="StudentClass" Type="PottersModel.Store.StudentClasses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="StudentClass">
+        <PropertyRef Name="StudentClassId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="StudentClassStudentClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentClassStudentClassBill">
+    <End Role="StudentClass" Type="PottersModel.Store.StudentClasses" Multiplicity="*" />
+    <End Role="StudentClassBill" Type="PottersModel.Store.StudentClassBills" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="StudentClassBill">
+        <PropertyRef Name="StudentClassBillId" />
+      </Principal>
+      <Dependent Role="StudentClass">
+        <PropertyRef Name="StudentClassBill_StudentClassBillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PottersModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="PottersEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="PottersModel.Account" />
+          <EntitySet Name="Parents" EntityType="PottersModel.Parent" />
+          <EntitySet Name="StudentClassBills" EntityType="PottersModel.StudentClassBill" />
+          <EntitySet Name="StudentClasses" EntityType="PottersModel.StudentClass" />
+          <EntitySet Name="Students" EntityType="PottersModel.Student" />
+          <EntitySet Name="Transactions" EntityType="PottersModel.Transaction" />
+          <AssociationSet Name="FK_AccountTransaction" Association="PottersModel.FK_AccountTransaction">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParentStudent" Association="PottersModel.FK_ParentStudent">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="StudentAccount" Association="PottersModel.StudentAccount">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <EntitySet Name="AcademicSessions" EntityType="PottersModel.AcademicSession" />
+          <AssociationSet Name="AcademicSessionTransaction" Association="PottersModel.AcademicSessionTransaction">
+            <End Role="AcademicSession" EntitySet="AcademicSessions" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="StudentStudentClass" Association="PottersModel.StudentStudentClass">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentClass" EntitySet="StudentClasses" />
+          </AssociationSet>
+          <EntitySet Name="Logins" EntityType="PottersModel.Login" />
+          <AssociationSet Name="StudentClassStudentClassBill" Association="PottersModel.StudentClassStudentClassBill">
+            <End Role="StudentClass" EntitySet="StudentClasses" />
+            <End Role="StudentClassBill" EntitySet="StudentClassBills" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountNo" />
+          </Key>
+          <Property Name="AccountNo" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CreditBalance" Type="Double" Nullable="false" />
+          <Property Name="Fees" Type="Double" Nullable="false" />
+          <Property Name="DebitBalance" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Transactions" Relationship="PottersModel.FK_AccountTransaction" FromRole="Accounts" ToRole="Transactions" />
+          <NavigationProperty Name="Student" Relationship="PottersModel.StudentAccount" FromRole="Account" ToRole="Student" />
+          <Property Type="Double" Name="BalanceLastTerm" Nullable="false" />
+          <Property Type="Double" Name="Rebate" Nullable="false" />
+          <Property Type="Boolean" Name="FullyPaid" Nullable="false" />
+          <Property Type="String" Name="AccountNumber" MaxLength="9" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Double" Name="SchoolBusFees" Nullable="false" />
+          <Property Type="Double" Name="TextBookFees" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="ParentId" />
+          </Key>
+          <Property Name="ParentId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FatherTitle" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FatherFirstName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FatherLastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FatherPhone" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MotherTitle" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MotherFirstName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MotherLastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MotherPhone" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Students" Relationship="PottersModel.FK_ParentStudent" FromRole="Parents" ToRole="Students" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="ParentIdentificationNo" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+        <EntityType Name="StudentClassBill">
+          <Key>
+            <PropertyRef Name="StudentClassBillId" />
+          </Key>
+          <Property Name="StudentClassBillId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolFees" Type="Double" Nullable="false" />
+          <Property Name="ExamFees" Type="Double" Nullable="false" />
+          <Property Name="LessonFees" Type="Double" Nullable="false" />
+          <Property Name="FirstAidFees" Type="Double" Nullable="false" />
+          <Property Name="ComputerFees" Type="Double" />
+          <Property Name="MusicFees" Type="Double" />
+          <Property Name="ExerciseBookFees" Type="Double" Nullable="false" />
+          <Property Name="FormFees" Type="Double" Nullable="false" />
+          <Property Name="FullUniformFees" Nullable="false" Type="Double" />
+          <Property Name="CardiganFees" Type="Double" Nullable="false" />
+          <Property Name="SportwearFees" Type="Double" Nullable="false" />
+          <Property Name="AnniversaryTshirtFees" Type="Double" Nullable="false" />
+          <Property Name="DevelopmentLevyFees" Type="Double" Nullable="false" />
+          <Property Name="Total" Type="Double" Nullable="false" />
+          <Property Name="StudentClass_StudentClassId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StudentClass" Relationship="PottersModel.StudentClassStudentClassBill" FromRole="StudentClassBill" ToRole="StudentClass" />
+          <Property Type="Double" Name="HalfUniformFees" Nullable="false" />
+          <Property Type="Double" Name="UniformFees" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentClass">
+          <Key>
+            <PropertyRef Name="StudentClassId" />
+          </Key>
+          <Property Name="StudentClassId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="PottersModel.StudentStudentClass" FromRole="StudentClass" ToRole="Student" />
+          <NavigationProperty Name="StudentClassBill" Relationship="PottersModel.StudentClassStudentClassBill" FromRole="StudentClass" ToRole="StudentClassBill" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="AdmissionNo" />
+          </Key>
+          <Property Name="AdmissionNo" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Class" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AdmissionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Sex" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="PreviousSchool" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="PreviousClassPreviousSchool" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ParentParentId" Type="Int32" Nullable="false" />
+          <Property Name="Religion" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="IsOnSchoolBus" Type="Boolean" />
+          <Property Name="FullName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Parent" Relationship="PottersModel.FK_ParentStudent" FromRole="Students" ToRole="Parents" />
+          <NavigationProperty Name="Account" Relationship="PottersModel.StudentAccount" FromRole="Student" ToRole="Account" />
+          <Property Type="String" Name="AcademicSessionEnrolled" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="ClassDivision" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="AdmissionStatus" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="StudentClass" Relationship="PottersModel.StudentStudentClass" FromRole="Student" ToRole="StudentClass" />
+          <Property Type="Int32" Name="StudentClassStudentClassId" Nullable="false" />
+          <Property Type="String" Name="AdmissionNumber" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Double" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TellerNo" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AccountAccountNo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="PottersModel.FK_AccountTransaction" FromRole="Transactions" ToRole="Accounts" />
+          <NavigationProperty Name="AcademicSession" Relationship="PottersModel.AcademicSessionTransaction" FromRole="Transaction" ToRole="AcademicSession" />
+          <Property Type="Int32" Name="AcademicSessionAcademicSessionId" Nullable="false" />
+          <Property Type="String" Name="TransactionIdentificationNo" MaxLength="Max" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+        <Association Name="FK_AccountTransaction">
+          <End Role="Accounts" Type="PottersModel.Account" Multiplicity="1" />
+          <End Role="Transactions" Type="PottersModel.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="AccountNo" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="AccountAccountNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParentStudent">
+          <End Role="Parents" Type="PottersModel.Parent" Multiplicity="1" />
+          <End Role="Students" Type="PottersModel.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="ParentId" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="ParentParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StudentAccount">
+          <End Type="PottersModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="PottersModel.Account" Role="Account" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="AcademicSession">
+          <Key>
+            <PropertyRef Name="AcademicSessionId" />
+          </Key>
+          <Property Type="Int32" Name="AcademicSessionId" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="AcademicYear" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Term" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="Double" Name="FeesPayable" Nullable="false" />
+          <Property Type="Double" Name="FeesPaid" Nullable="false" />
+          <Property Type="Double" Name="FeesUnpaid" Nullable="false" />
+          <Property Name="NewStudentCount" Nullable="false" Type="Int32" />
+          <NavigationProperty Name="Transactions" Relationship="PottersModel.AcademicSessionTransaction" FromRole="AcademicSession" ToRole="Transaction" />
+          <Property Type="Boolean" Name="IsInSession" Nullable="false" />
+        </EntityType>
+        <Association Name="AcademicSessionTransaction">
+          <End Type="PottersModel.AcademicSession" Role="AcademicSession" Multiplicity="1" />
+          <End Type="PottersModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicSession">
+              <PropertyRef Name="AcademicSessionId" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="AcademicSessionAcademicSessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StudentStudentClass">
+          <End Type="PottersModel.Student" Role="Student" Multiplicity="*" />
+          <End Type="PottersModel.StudentClass" Role="StudentClass" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="StudentClass">
+              <PropertyRef Name="StudentClassId" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="StudentClassStudentClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Type="String" Name="Id" MaxLength="200" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="StudentClassStudentClassBill">
+          <End Type="PottersModel.StudentClass" Role="StudentClass" Multiplicity="1" />
+          <End Type="PottersModel.StudentClassBill" Role="StudentClassBill" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PottersModelStoreContainer" CdmEntityContainer="PottersEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="IsTypeOf(PottersModel.Account)">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+          <ScalarProperty Name="CreditBalance" ColumnName="CreditBalance" />
+          <ScalarProperty Name="Fees" ColumnName="Fees" />
+          <ScalarProperty Name="DebitBalance" ColumnName="DebitBalance" />
+          <ScalarProperty Name="BalanceLastTerm" ColumnName="BalanceLastTerm" />
+          <ScalarProperty Name="Rebate" ColumnName="Rebate" />
+          <ScalarProperty Name="FullyPaid" ColumnName="FullyPaid" />
+          <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+          <ScalarProperty Name="SchoolBusFees" ColumnName="SchoolBusFees" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parents">
+      <EntityTypeMapping TypeName="IsTypeOf(PottersModel.Parent)">
+        <MappingFragment StoreEntitySet="Parents">
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="FatherTitle" ColumnName="FatherTitle" />
+          <ScalarProperty Name="FatherFirstName" ColumnName="FatherFirstName" />
+          <ScalarProperty Name="FatherLastName" ColumnName="FatherLastName" />
+          <ScalarProperty Name="FatherPhone" ColumnName="FatherPhone" />
+          <ScalarProperty Name="MotherTitle" ColumnName="MotherTitle" />
+          <ScalarProperty Name="MotherFirstName" ColumnName="MotherFirstName" />
+          <ScalarProperty Name="MotherLastName" ColumnName="MotherLastName" />
+          <ScalarProperty Name="MotherPhone" ColumnName="MotherPhone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="ParentIdentificationNo" ColumnName="ParentIdentificationNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentClassBills">
+      <EntityTypeMapping TypeName="IsTypeOf(PottersModel.StudentClassBill)">
+        <MappingFragment StoreEntitySet="StudentClassBills">
+          <ScalarProperty Name="StudentClassBillId" ColumnName="StudentClassBillId" />
+          <ScalarProperty Name="SchoolFees" ColumnName="SchoolFees" />
+          <ScalarProperty Name="ExamFees" ColumnName="ExamFees" />
+          <ScalarProperty Name="LessonFees" ColumnName="LessonFees" />
+          <ScalarProperty Name="FirstAidFees" ColumnName="FirstAidFees" />
+          <ScalarProperty Name="ComputerFees" ColumnName="ComputerFees" />
+          <ScalarProperty Name="MusicFees" ColumnName="MusicFees" />
+          <ScalarProperty Name="ExerciseBookFees" ColumnName="ExerciseBookFees" />
+          <ScalarProperty Name="FormFees" ColumnName="FormFees" />
+          <ScalarProperty Name="FullUniformFees" ColumnName="UniformFees" />
+          <ScalarProperty Name="CardiganFees" ColumnName="CardiganFees" />
+          <ScalarProperty Name="SportwearFees" ColumnName="SportwearFees" />
+          <ScalarProperty Name="AnniversaryTshirtFees" ColumnName="AnniversaryTshirtFees" />
+          <ScalarProperty Name="DevelopmentLevyFees" ColumnName="DevelopmentLevyFees" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="StudentClass_StudentClassId" ColumnName="StudentClass_StudentClassId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentClasses">
+      <EntityTypeMapping TypeName="IsTypeOf(PottersModel.StudentClass)">
+        <MappingFragment StoreEntitySet="StudentClasses">
+          <ScalarProperty Name="StudentClassId" ColumnName="StudentClassId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="IsTypeOf(PottersModel.Student)">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="AdmissionNo" ColumnName="AdmissionNo" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="AdmissionDate" ColumnName="AdmissionDate" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="PreviousSchool" ColumnName="PreviousSchool" />
+          <ScalarProperty Name="PreviousClassPreviousSchool" ColumnName="PreviousClassPreviousSchool" />
+          <ScalarProperty Name="ParentParentId" ColumnName="ParentParentId" />
+          <ScalarProperty Name="Religion" ColumnName="Religion" />
+          <ScalarProperty Name="IsOnSchoolBus" ColumnName="IsOnSchoolBus" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="AcademicSessionEnrolled" ColumnName="AcademicSessionEnrolled" />
+          <ScalarProperty Name="ClassDivision" ColumnName="ClassDivision" />
+          <ScalarProperty Name="AdmissionStatus" ColumnName="AdmissionStatus" />
+          <ScalarProperty Name="StudentClassStudentClassId" ColumnName="StudentClassStudentClassId" />
+          <ScalarProperty Name="AdmissionNumber" ColumnName="AdmissionNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="IsTypeOf(PottersModel.Transaction)">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="TellerNo" ColumnName="TellerNo" />
+          <ScalarProperty Name="AccountAccountNo" ColumnName="AccountAccountNo" />
+          <ScalarProperty Name="AcademicSessionAcademicSessionId" ColumnName="AcademicSessionAcademicSessionId" />
+          <ScalarProperty Name="TransactionIdentificationNo" ColumnName="TransactionIdentificationNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AcademicSessions">
+      <EntityTypeMapping TypeName="IsTypeOf(PottersModel.AcademicSession)">
+        <MappingFragment StoreEntitySet="AcademicSessions">
+          <ScalarProperty Name="AcademicSessionId" ColumnName="AcademicSessionId" />
+          <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+          <ScalarProperty Name="Term" ColumnName="Term" />
+          <ScalarProperty Name="FeesPayable" ColumnName="FeesPayable" />
+          <ScalarProperty Name="FeesPaid" ColumnName="FeesPaid" />
+          <ScalarProperty Name="FeesUnpaid" ColumnName="FeesUnpaid" />
+          <ScalarProperty Name="NewStudentCount" ColumnName="NewStudentCount" />
+          <ScalarProperty Name="IsInSession" ColumnName="IsInSession" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logins">
+      <EntityTypeMapping TypeName="IsTypeOf(PottersModel.Login)">
+        <MappingFragment StoreEntitySet="Logins">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="StudentAccount" TypeName="PottersModel.StudentAccount" StoreEntitySet="Accounts">
+      <EndProperty Name="Student">
+        <ScalarProperty Name="AdmissionNo" ColumnName="Student_AdmissionNo" />
+      </EndProperty>
+      <EndProperty Name="Account">
+        <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentClassStudentClassBill" TypeName="PottersModel.StudentClassStudentClassBill" StoreEntitySet="StudentClasses">
+      <EndProperty Name="StudentClassBill">
+        <ScalarProperty Name="StudentClassBillId" ColumnName="StudentClassBill_StudentClassBillId" />
+      </EndProperty>
+      <EndProperty Name="StudentClass">
+        <ScalarProperty Name="StudentClassId" ColumnName="StudentClassId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>

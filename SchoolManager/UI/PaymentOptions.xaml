@@ -1,0 +1,21 @@
+﻿<Controls:MetroWindow x:Class="SchoolManager.UI.PaymentOptions"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Payment Options" Height="150" Width="320" BorderThickness="0" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Margin="0">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <StackPanel >
+            <TextBlock Text="Please tick if Text Books are to be included in the fees." Margin="5"  />
+            <Separator />
+        <CheckBox Content="Text Book" Name="TextBookChecked" Margin="5"/>
+        <Button Content="OK" Name="Ok" Width="100" Margin="0,20,0,0" Click="Ok_Click_1" />
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,750 @@
+﻿<Controls:MetroWindow x:Name="MainWindow1" x:Class="SchoolManager.UI.MainWindow"
+                      xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         Height="730"  Loaded="MainWindow1_Loaded" Title="School Manager" TitleCaps="False" TitlebarHeight="30" TitleForeground="AliceBlue"
+         Background="AliceBlue"  WindowStartupLocation="CenterScreen" Width="970" HorizontalAlignment="Center" VerticalAlignment="Center" SizeToContent="WidthAndHeight" BorderThickness="2,2,2,2" BorderBrush="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Icon="/SchoolManager;component/school_manager_icon.ico" Cursor="Hand" KeyDown="MainWindow1_KeyDown" FontSize="14" MinWidth="970" MinHeight="730" >
+   
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <!--<Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Label Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+            <Rectangle Width="20" Height="20" Fill="{Binding RelativeSource={RelativeSource AncestorType=Label}, Path=Foreground}" Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_book_perspective}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            </Label>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>-->
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Name="PayFees" Click="PayFeesButtonTest_Click_1" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="pay fees" Margin="0 0 4 0"/>
+                    <Rectangle Width="15" Height="15" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_book}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+            <Button Name="Settings" Click="Settings_Click_1" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="settings" Margin="0 0 4 0"/>
+                <Rectangle Width="15" Height="15" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                </StackPanel>
+                
+            </Button>
+            <Button Name="Logout" IsEnabled="False" Click="Logout_Click_1" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0 0 4 0" VerticalAlignment="Center" Text="log out" />
+                    <Rectangle Width="15" Height="15" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_power}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>                    
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid>
+        <TabControl  HorizontalAlignment="Center" x:Name="MainTab"  Margin="0,5,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <TabItem Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Home"  Margin="0,0,10,0" />
+                            <Rectangle  Width="30" Height="30" Fill="{Binding RelativeSource={RelativeSource AncestorType=TabItem}, Path=Foreground}">
+                                <Rectangle.OpacityMask >
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_home}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <StackPanel Height="630">
+                    <StackPanel Margin="0,85" HorizontalAlignment="Center">
+                        <PasswordBox Controls:TextBoxHelper.Watermark="Enter Password..." Margin="2" Name="Password" KeyDown="Password_KeyDown_1" />
+                        <WrapPanel>
+                            <Controls:Tile IsEnabled="False"  FontSize="18" VerticalContentAlignment="Bottom" TiltFactor="2" Width="200" Height="200" Name="RegisterNewStudentHome" Click="RegisterNewStudentHome_Click_1">
+                                <StackPanel>
+                                <Rectangle  Width="40" Height="40" Fill="{Binding RelativeSource={RelativeSource AncestorType=Controls:Tile}, Path=Foreground}">
+                                    <Rectangle.OpacityMask >
+                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_user_add}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                    <Label Content="Register New Student" Margin="0,50,0,0" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"  />
+                                </StackPanel>
+                            </Controls:Tile>
+                            <Controls:Tile IsEnabled="False"  FontSize="18" VerticalContentAlignment="Bottom" TiltFactor="2" Width="200" Height="200" Name="PayFeesHome" Click="PayFeesHome_Click_1">
+                                <StackPanel>
+                                    <Rectangle  Width="40" Height="40" Fill="{Binding RelativeSource={RelativeSource AncestorType=Controls:Tile}, Path=Foreground}">
+                                        <Rectangle.OpacityMask >
+                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_money}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                    <Label Content="Pay Fees" Margin="0,50,0,0" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                                </StackPanel>
+                            </Controls:Tile>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Controls:Tile IsEnabled="False"  FontSize="18" VerticalContentAlignment="Bottom" TiltFactor="2" Width="200" Height="200" Name="StudentsHome" Click="StudentsHome_Click_1">
+                                <StackPanel>
+                                    <Rectangle  Width="40" Height="40" Fill="{Binding RelativeSource={RelativeSource AncestorType=Controls:Tile}, Path=Foreground}">
+                                        <Rectangle.OpacityMask >
+                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_group}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                    <Label Content="Students" Margin="0,50,0,0" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                                </StackPanel>
+                            </Controls:Tile>
+                            <Controls:Tile IsEnabled="False" FontSize="18" VerticalContentAlignment="Bottom" TiltFactor="2" Width="200" Height="200" Name="LedgerHome" Click="LedgerHome_Click_1">
+                                <StackPanel>
+                                    <Rectangle  Width="40" Height="40" Fill="{Binding RelativeSource={RelativeSource AncestorType=Controls:Tile}, Path=Foreground}">
+                                        <Rectangle.OpacityMask >
+                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_book}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                    <Label Content="Ledger" Margin="0,50,0,0" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                                </StackPanel>
+                            </Controls:Tile>
+                        </WrapPanel>
+                        <Controls:ProgressRing IsActive="false" Name="loginprogress"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>           
+            <TabItem Header="Register New Student" IsEnabled="False" Name="RegisterNewStudentTab" Width="320" Margin="0,0,0,0"   VirtualizingPanel.ScrollUnit="Pixel" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">    
+                            <TextBlock Text="Register New Student"  Margin="0,0,10,0" />
+                            <Rectangle  Width="30" Height="30" Fill="{Binding RelativeSource={RelativeSource AncestorType=TabItem}, Path=Foreground}">
+                                <Rectangle.OpacityMask >
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_user_add}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>                           
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Border  BorderThickness="0,0,0,0" CornerRadius="0" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
+                    <StackPanel Height="630"  HorizontalAlignment="Center" Width="900" VerticalAlignment="Top" Margin="0,10,0,0">
+                <WrapPanel>
+                    <GroupBox  Header="Student Details" Width="400" Height="615" VerticalAlignment="Top" Margin="40,0,10,0" Foreground="AliceBlue">
+                        <GroupBox.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="STUDENT DETAILS" Margin="0,0,270,0" Foreground="AliceBlue" />
+                                    <Rectangle Width="20" Height="20" HorizontalAlignment="Right" Fill="{Binding RelativeSource={RelativeSource AncestorType=GroupBox}, Path=Foreground}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_user }" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <StackPanel Margin="3,3,3,17">
+                            <!--<Label Content="First Name"/>-->
+                            <TextBox Controls:TextBoxHelper.Watermark="First Name" Height="23" TextWrapping="Wrap" x:Name="FirstName" Margin="0,0,3,3"/>   
+                            <!--<Label Content="Surname"/>-->
+                            <TextBox Controls:TextBoxHelper.Watermark="Surname" Height="23" TextWrapping="Wrap" x:Name="LastName"  Margin="0,0,3,3"/>
+                            <!--<Label Content="Middle Name (If Any)"/>-->
+                            <TextBox Controls:TextBoxHelper.Watermark="Middle Name (If Any)" Height="23" TextWrapping="Wrap" x:Name="MiddleName" Margin="0,0,3,3"/>
+                            <Label Content="Sex"/>
+                            <ComboBox x:Name="Sex" IsEditable="True" SelectedIndex="0" >
+                                <ComboBoxItem Content="Male"/>
+                                <ComboBoxItem Content="Female"/>
+                            </ComboBox>
+                            <Label Content="Class"/>
+                            <ComboBox x:Name="ClassList" IsEditable="True" ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedIndex="0"   SelectedValuePath="StudentClassId" Width="382" Height="26"/>
+                            <Label Content="Admission Date"/>
+                            <DatePicker Margin="0,0,3,3" x:Name="AdmissionDate"/>
+                            <Label Content="Date Of Birth"/>
+                            <DatePicker Margin="0,0,3,3" x:Name="DateOfBirth"/>
+                            <Label Content="Religion"/>
+                            <ComboBox x:Name="ReligionList" IsEditable="True" Margin="0,0,3,3" SelectedIndex="0">
+                                <ComboBoxItem Content="Christian"/>
+                                <ComboBoxItem Content="Muslim"/>
+                                <ComboBoxItem Content="Others"/>
+                            </ComboBox>
+                            <!--<Label Content="Address"/>-->
+                            <TextBox Controls:TextBoxHelper.Watermark="Address" TextWrapping="Wrap" x:Name="Address" Height="88" Margin="0,0,3,3"/>
+                            <!--<Label Content="Optional"/>-->
+                            <Separator Margin="0,5"/>
+                                    <WrapPanel>
+                                        <CheckBox x:Name="SchoolBusCheckBox" Width="175" HorizontalAlignment="Left" Checked="SchoolBusCheckBox_Checked_1" Click="SchoolBusCheckBox_Click_1">     
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="20" Height="20" Fill="{Binding RelativeSource={RelativeSource AncestorType=CheckBox}, Path=Foreground}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_transit_bus}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                    <TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="School Bus" />
+                                </StackPanel>                             
+                            </CheckBox>
+                                        <TextBox Controls:TextBoxHelper.Watermark="School Bus Fees" Name="SchoolBusFeesTextBox" Width="200" IsEnabled="False"/>
+                                    </WrapPanel>
+                                    <TextBox Controls:TextBoxHelper.Watermark ="Class Division (Optional)" Name="ClassDivision" Margin="0,10,3,3"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <StackPanel Height="623">
+                    <GroupBox x:Name="ParentGuardianDetails" Visibility="Visible" Header="Parent Details"  Width="400" Height="451" VerticalAlignment="Top" Margin="10,0,40,0" Foreground="AliceBlue">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="PARENT DETAILS" Margin="0,0,260,0" Foreground="AliceBlue" />
+                                    <Rectangle Width="20" Height="20" HorizontalAlignment="Right" Fill="{Binding RelativeSource={RelativeSource AncestorType=GroupBox}, Path=Foreground}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_user }" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                    <Rectangle Width="20" Height="20" HorizontalAlignment="Right" Fill="{Binding RelativeSource={RelativeSource AncestorType=GroupBox}, Path=Foreground}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_user }" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <StackPanel Margin="3,3,3,13">
+                            <RadioButton Content="Old Parent" x:Name="OldParent" Margin="3"  Checked="OldParent_Checked"  />
+                            <!--<TextBlock Padding="5" TextWrapping="Wrap" Margin="3,0,3,3" Height="60"><Run Language="en-gb" Text="In the case that the parent or guardian already has a child/children in the school, you can just get the Parent Id from the 'View Parents' tab and paste it below."/><LineBreak/><Run Language="en-gb"/></TextBlock>-->
+                            <Label Content="Parents"/>
+                                    <TextBox Controls:TextBoxHelper.Watermark="Enter Parent Surname" Name="ParentSurnameTextBox" TextChanged="ParentSurnameTextBox_TextChanged_1" />
+                                    <ListBox VirtualizingPanel.ScrollUnit="Pixel"  Height="50" HorizontalContentAlignment="Center" ToolTip="{Binding ParentId}" x:Name="ParentId"  Margin="0,0,3,3" ItemsSource="{Binding}" DisplayMemberPath="FullName" />
+                                        <!--<ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <WrapPanel>
+                                                    <TextBlock Text="{Binding FatherTitle}" Margin="0,0,5,0"/>
+                                                    <TextBlock Text="and" Margin="0,0,5,0"/>
+                                                    <TextBlock Text="{Binding MotherTitle}" Margin="0,0,5,0"/>
+                                                    <TextBlock Text="{Binding FatherLastName}" Margin="0,0,5,0"/>
+                                                    <TextBlock Text="{Binding ParentId}" Margin="10,0,0,0"/>
+                                                </WrapPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>-->
+                                    
+
+                            <Separator Margin="0,3"/>
+                            <RadioButton Content="New Parent" x:Name="NewParent" Margin="3"  Checked="NewParent_Checked"/>
+                            <!--<TextBlock Padding="5" TextWrapping="Wrap" Margin="3,0,3,3" Text="If the parent is new, fill the form below"/>-->
+                                        <WrapPanel>
+                                            <Label Content="Father's Title" Width="150"/>
+                                            <ComboBox IsEnabled="False" IsEditable="True" x:Name="FatherTitleList" Width="150" SelectedIndex="0">
+                                                <ComboBoxItem Content="Mr"/>
+                                                <ComboBoxItem Content="Dr"/>
+                                            </ComboBox>
+                                        </WrapPanel>        
+                            <!--<Label Content="Father's First Name" />-->
+                            <TextBox Controls:TextBoxHelper.Watermark="Father's First Name" Height="23" TextWrapping="Wrap" x:Name="FatherFirstName" Margin="0,3,3,3" IsEnabled="False"/>
+                            <!--<Label Content="Father's Phone No" />-->
+                            <TextBox Controls:TextBoxHelper.Watermark="Father's Phone No"  Height="23" TextWrapping="Wrap" x:Name="FatherPhone" Margin="0,3,3,3" IsEnabled="False"/>
+                                        <WrapPanel>
+                                            <Label Content="Mother's Title" Width="150"/>
+                                            <ComboBox IsEnabled="False" IsEditable="True" x:Name="MotherTitleList" Width="150" SelectedIndex="0">
+                                                <ComboBoxItem Content="Mrs"/>
+                                                <ComboBoxItem Content="Dr"/>
+                                            </ComboBox>
+                                        </WrapPanel>
+                            <!--<Label Content="Mother's First Name" />-->
+                            <TextBox Controls:TextBoxHelper.Watermark="Mother's First Name" Height="23" TextWrapping="Wrap" x:Name="MotherFirstName" Margin="0,3,3,3" IsEnabled="False"/>
+                            <!--<Label Content="Mother's Phone No" />-->
+                            <TextBox Controls:TextBoxHelper.Watermark="Mother's Phone No" Height="23" TextWrapping="Wrap" x:Name="MotherPhone" Margin="0,0,3,3" IsEnabled="False"/>
+                            <Separator Margin="0,5"/>
+                            <!--<Label Content="Email (Optional)" />-->
+                            <TextBox Controls:TextBoxHelper.Watermark="Email (Optional)" Height="23" TextWrapping="Wrap" x:Name="Email" Margin="0,8,3,3" IsEnabled="False"/>
+                        </StackPanel>
+                    </GroupBox>
+                            <GroupBox Header="Previous School" Visibility="Visible" x:Name="PreviousSchoolDetails"  Width="400" Height="105" Margin="10,10,40,0" Foreground="AliceBlue" >
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="PREVIOUS SCHOOL DETAILS (Optional)" Margin="0,0,160,0" Foreground="AliceBlue" />
+                                        <Rectangle Width="20" Height="20" HorizontalAlignment="Right" Fill="{Binding RelativeSource={RelativeSource AncestorType=GroupBox}, Path=Foreground}">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush  Stretch="Fill" Visual="{StaticResource appbar_home_variant_leave }" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+                            <StackPanel Margin="3">
+                                <!--<TextBlock Padding="5"  Margin="3,0,3,3" TextWrapping="Wrap" Text="The section can be skipped if the student is just starting out with your school. "/>-->
+                                <!--<Label Content="Previous School Attended"/>-->
+                                <TextBox Controls:TextBoxHelper.Watermark="Previous School Attended (Optional)"  Height="23" TextWrapping="Wrap" x:Name="PreviousSchool" Margin="0,0,3,3"/>
+                                <!--<Label Content="Last Class in Previous School"/>-->
+                                    <TextBox Controls:TextBoxHelper.Watermark="Last Class in Previous School (Optional)" Name="PreviousClassList"/>
+                                    <!--<ComboBox x:Name="PreviousClassList" IsEditable="True">
+                                    <ComboBoxItem Content="Basic 1"/>
+                                    <ComboBoxItem Content="Basic 2"/>
+                                    <ComboBoxItem Content="Basic 3"/>
+                                    <ComboBoxItem Content="Basic 4"/>
+                                    <ComboBoxItem Content="Basic 5"/>
+                                </ComboBox>-->
+                                    
+                                </StackPanel>
+                        </GroupBox>
+                            <WrapPanel Margin="10,10,40,0" HorizontalAlignment="Center">
+                                <Button Content="Finish" Style="{StaticResource AccentedSquareButtonStyle}" x:Name="Finish" Width="75" Margin="5"  Click="Finish_Click" Foreground="AliceBlue" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"  />
+                                    <Button Content="Cancel" Style="{StaticResource AccentedSquareButtonStyle}" Name="CancelRegistration" Margin="5" Width="75" Click="CancelRegistration_Click_1" Foreground="AliceBlue" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </WrapPanel>     
+                        </StackPanel>        
+                </WrapPanel>
+                </StackPanel>
+                </Border>
+            </TabItem>
+            <TabItem   Header="Students" Width="175" IsEnabled="False"  x:Name="StudentsTab" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Students" Margin="0,0,10,0"/>
+                        <Rectangle  Width="30" Height="30" Fill="{Binding RelativeSource={RelativeSource AncestorType=TabItem}, Path=Foreground}">
+                            <Rectangle.OpacityMask >
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_group}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Border BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="0,0,0,0" CornerRadius="0">
+                    <StackPanel Height="630" HorizontalAlignment="Center" Width="900" VerticalAlignment="Top" Margin="0,10,0,0">
+                        <WrapPanel  DataContext="{Binding}">
+                            <StackPanel>
+                                <TextBox Name="StudentFilter" TextChanged="StudentFilter_TextChanged_1"  Width="190" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Enter Student's Surname..." Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                                <ListBox VirtualizingPanel.ScrollUnit="Pixel" IsTextSearchEnabled="True"  Height="598" ItemsSource="{Binding}" SelectedValuePath="AdmissionNo" SelectedIndex="0" x:Name="StudentListBox" Width="190"
+								HorizontalAlignment="Left" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" >
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel  Orientation="Horizontal">
+                                                <TextBlock Text="{Binding LastName}"/>
+                                                <TextBlock Text="{Binding FirstName}" Padding="4,0,4,0"/>
+                                                <TextBlock Text="{Binding MiddleName}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                    <ListBox.ContextMenu>
+                                        <ContextMenu>
+                                            <Separator Height="5"/>
+                                            <!--<MenuItem Header="Pay Fees" x:Name="PayFeesMenu" Click="PayFeesButton_Click_1"/>-->
+                                            <MenuItem Header="Payments Made" x:Name="PaymentMadeMenu" Click="PaymentMadeMenu_Click_1"/>
+                                            <MenuItem Header="Parent Details" x:Name="ParentDetailsMenu" Click="ParentDetailsMenu_Click_1"/>
+                                        </ContextMenu>
+                                    </ListBox.ContextMenu>
+                                </ListBox>
+                            </StackPanel>
+                            <WrapPanel>
+                                <GroupBox VerticalAlignment="Top"  x:Name="StudentGroupBox" Width="300" Margin="25,0" Height="625" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" >
+                                    <GroupBox.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding SelectedItem.LastName, ElementName=StudentListBox}" Foreground="AliceBlue"  />
+                                                <TextBlock Text="{Binding SelectedItem.FirstName, ElementName=StudentListBox}" Foreground ="AliceBlue"  Padding="2,0,0,0"/>
+                                                <TextBlock Text="'s Details" Foreground="AliceBlue"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GroupBox.HeaderTemplate>
+                                    <StackPanel Margin="0,0,0,0" DataContext="{Binding SelectedItem, ElementName=StudentListBox}">
+
+                                        <Label Content="Admission Number" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0" Grid.Row="0" VerticalAlignment="Center" Height="26" Width="130"/>
+                                        <TextBox x:Name="admissionnoTextBox" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Height="24"  Grid.Row="1" Text="{Binding AdmissionNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="188" IsEnabled="False"/>
+                                        <Label Content="Last Name" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="26" Width="91"/>
+                                        <TextBox x:Name="lastNameTextBox" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.Row="3" Text="{Binding ElementName=StudentListBox,Path=SelectedItem.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=400}" VerticalAlignment="Center" Height="26" Width="188"/>
+                                        <Label Content="First Name" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Height="26" Width="99"/>
+                                        <TextBox x:Name="firstNameTextBox" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Height="24"  Grid.Row="5" Text="{Binding FirstName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="188"/>
+                                        <Label Content="Middle Name" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.Row="6" VerticalAlignment="Center" Height="26" Width="96"/>
+                                        <TextBox x:Name="middleNameTextBox" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Height="24"  Grid.Row="7" Text="{Binding MiddleName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="188"/>
+                                        <Label Content="Class" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.Row="8" VerticalAlignment="Center" Height="26" Width="99"/>
+                                        <TextBox x:Name="classTextBox" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Height="24"  Grid.Row="9" Text="{Binding Class, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="188" IsEnabled="False"/>
+                                        <Label Content="Sex" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.Row="10" VerticalAlignment="Center" Height="26" Width="85"/>
+                                        <TextBox x:Name="sexTextBox" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Height="24"  Grid.Row="11" Text="{Binding Sex, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="188" Margin="0,0,0,10"/>
+                                        <Label Content="School Bus Fees" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.Row="10" VerticalAlignment="Center" Height="26" Width="110"/>
+                                        <TextBox x:Name="SchoolBusTextBox" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Height="24"  Grid.Row="11" Text="{Binding ElementName=StudentListBox, Path=SelectedItem.Account.SchoolBusFees, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="188" Margin="0,0,0,10"/>
+                                        <Separator Margin="0,5,0,3"/>
+                                        <WrapPanel Margin="0,30,0,10">
+                                        <Label Content="Admission Date"  HorizontalAlignment="Center" HorizontalContentAlignment="Left"  VerticalAlignment="Center" Height="26" Width="110"/>
+                                        <DatePicker x:Name="admissionDateDatePicker"  HorizontalAlignment="Center"  Margin="0" Grid.Row="6" SelectedDate="{Binding AdmissionDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Height="24" Width="160" IsEnabled="False"/>
+                                        </WrapPanel>
+                                            <WrapPanel Margin="0,10">
+                                        <Label Content="Date Of Birth" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="left"  Grid.Row="12" VerticalAlignment="Center" Height="26" Width="110"/>
+                                        <DatePicker x:Name="dateOfBirthDatePicker" Grid.Column="0"   Grid.Row="13" SelectedDate="{Binding DateOfBirth, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Height="24" Width="160"/>
+                                        </WrapPanel>
+                                        
+                                        <WrapPanel Margin="0,10">
+                                        <Label Content="Address"  HorizontalAlignment="Center" HorizontalContentAlignment="Left"  Grid.Row="3" VerticalAlignment="Top" Height="26" Width="110"/>
+                                        <TextBox TextWrapping="Wrap" x:Name="addressTextBox"    Height="67" Grid.Row="4" Text="{Binding Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="160"/>
+                                        
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <StackPanel Width="300">
+                                    <GroupBox Margin="0,0,0,0" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                                        <GroupBox.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding SelectedItem.LastName, ElementName=StudentListBox}" Foreground="AliceBlue"/>
+                                                    <TextBlock Text="{Binding SelectedItem.FirstName, ElementName=StudentListBox}" Padding="2,0,0,0" Foreground="AliceBlue"/>
+                                                    <TextBlock Text="'s Details" Foreground="AliceBlue"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GroupBox.HeaderTemplate>
+                                        <StackPanel DataContext="{Binding SelectedItem, ElementName=StudentListBox}">
+                                                <Label Content="Religion" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="85" Grid.Row="19" />
+                                                <ComboBox IsEditable="True" x:Name="ReligionComboBox" Grid.Column="0" HorizontalAlignment="Center" Height="24" Margin="3,4,0,4" Grid.Row="20" Text="{Binding Religion}" VerticalAlignment="Center" Width="188">
+                                                    <ComboBoxItem Content="Christian"/>
+                                                    <ComboBoxItem Content="Muslim"/>
+                                                    <ComboBoxItem Content="Others"/>
+                                                </ComboBox>
+                                            <Label Content="Class Division" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                            <TextBox  Grid.Column="0" Grid.Row="5" Width="188" x:Name="ClassDivisionTextBox" HorizontalContentAlignment="Center"  Text="{Binding ClassDivision}"/>
+                                            <Label Content="School Bus" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <StackPanel>
+                                                <Controls:ToggleSwitch Name="SchoolBusUpdateCheckBox"  HorizontalAlignment="Center" Width="188" IsChecked="{Binding IsOnSchoolBus}"/>
+                                            </StackPanel>
+
+                                            <Label Content="Name Of Previous School" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <TextBox Height="23" Text="{Binding PreviousSchool}" TextWrapping="Wrap" HorizontalContentAlignment="Center" x:Name="PreviousSchoolName" Width="188" />
+                                            <Label Content="Class in Previous School" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                            <ComboBox x:Name="PreviousSchoolClassList" Grid.Column="0" Grid.Row="3" Text="{Binding PreviousClassPreviousSchool}" HorizontalContentAlignment="Center" Margin="3,0,3,3" IsEditable="True" Width="188">
+                                                <ComboBoxItem Content="Kg 1"/>
+                                                <ComboBoxItem Content="Kg 2"/>
+                                                <ComboBoxItem Content="Nursery 1"/>
+                                                <ComboBoxItem Content="Nursery 2"/>
+                                                <ComboBoxItem Content="Basic 1"/>
+                                                <ComboBoxItem Content="Basic 2"/>
+                                                <ComboBoxItem Content="Basic 3"/>
+                                                <ComboBoxItem Content="Basic 4"/>
+                                                <ComboBoxItem Content="Basic 5"/>
+                                            </ComboBox>
+                                            <Button x:Name="UpdateStudent" Content="Update" Margin="10" Width="100" Click="UpdateStudent_Click_1"/>
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Margin="0,0,0,25" Header="Account Details" DataContext="{Binding SelectedItem.Account, ElementName=StudentListBox}" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" >
+                                        <GroupBox.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding SelectedItem.LastName, ElementName=StudentListBox}" Foreground="AliceBlue"/>
+                                                    <TextBlock Text="{Binding SelectedItem.FirstName, ElementName=StudentListBox}" Foreground="AliceBlue" Padding="2,0,0,0"/>
+                                                    <TextBlock Text="'s Account Details" Foreground="AliceBlue"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GroupBox.HeaderTemplate>
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" MinWidth="113"/>
+                                                    <ColumnDefinition Width="Auto" MinWidth="150"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Content="Account Number" Grid.Column="0" Grid.Row="0"/>
+                                                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding AccountNumber}" x:Name="AccntNoTextBox" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                                <Label Content="Fees" Grid.Column="0" Grid.Row="1"/>
+                                                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Fees,StringFormat={}{0:C}}"   x:Name="AccountFeesTextBox" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                                <Label Content="Credit Balance" Grid.Column="0" Grid.Row="2"/>
+                                                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding CreditBalance, StringFormat={}{0:C}}" x:Name="CreditBalTextBox" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                                <Label Content="Debit Balance" Grid.Column="0" Grid.Row="3"/>
+                                                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding DebitBalance, StringFormat={}{0:C}}" x:Name="DebitBalTextBox" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                                <Label Content="Fully Paid ?" Grid.Column="0" Grid.Row="4"/>
+                                                <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding FullyPaid, StringFormat={}{0:C}}" x:Name="StatusTextBox" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                            </Grid>
+                                            <!--<Separator Height="5" Margin="5"/>-->
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" MinWidth="113"/>
+                                                    <ColumnDefinition Width="Auto" MinWidth="150"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Grid.Column="0" Grid.Row="0" Content="Last Term Balance" />
+                                                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding BalanceLastTerm, StringFormat={}{0:C}}" x:Name="LastTermBalTextBox" HorizontalContentAlignment="Right" IsEnabled="False" />
+                                                <Label Grid.Column="0" Grid.Row="1" Content="Rebate"/>
+                                                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Rebate, StringFormat={}{0:C}}" x:Name="RebateTextBox" HorizontalContentAlignment="Right" IsEnabled="False" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </StackPanel>
+                            </WrapPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+            </TabItem>
+            <TabItem Header="Parents" Width="160" IsEnabled="False" x:Name="ParentsTab" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" >
+                <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Parents" Margin="0,0,10,0"/>
+                        <Rectangle  Width="30" Height="30" Fill="{Binding RelativeSource={RelativeSource AncestorType=TabItem}, Path=Foreground}">
+                            <Rectangle.OpacityMask >
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_group}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </StackPanel>    
+                </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Border BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="0,0,0,0">
+                    <StackPanel Height="630" HorizontalAlignment="Center" Width="900" VerticalAlignment="Top" Margin="0,10,0,0">
+                        <WrapPanel>
+                            <StackPanel>
+                                <TextBox Controls:TextBoxHelper.Watermark="Enter Parent's Surname . . ." Name="ParentFilter" TextChanged="ParentFilter_TextChanged_1" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                                <ListBox ItemsSource="{Binding}" SelectedIndex="0" x:Name="ParentListBox" Width="190" Height="598" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" >
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel  Orientation="Horizontal">
+                                                <TextBlock Text="{Binding FullName}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                            <StackPanel>
+                                <WrapPanel Margin="25,10" HorizontalAlignment="Center">
+                                    <Label  FontWeight="Bold" Content="PARENT IDENTIFICATION NUMBER" Width="300" Height="26"  Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                                    <TextBox Name="PIN" Text="{Binding  ElementName=ParentListBox, Path=SelectedItem.ParentIdentificationNo}" IsEnabled="False" Width="200" Height="26" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <StackPanel Width="370">
+                                        <StackPanel DataContext="{Binding ElementName=ParentListBox, Path=SelectedItem}">
+                                            <WrapPanel>
+                                                <GroupBox  Header="Father's Details" Width="330" Height="226" Margin="25,0,0,25">
+                                                    <StackPanel>
+                                                        <Grid Margin="10,10,0,10" x:Name="FatherDetailsGrid">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Label Content="Father's Title:" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="0" VerticalAlignment="Center" Height="26" Width="145"/>
+                                                            <TextBox Name="uFatherTitle"   Grid.Column="1" HorizontalAlignment="Left" Margin="4,4,0,4" Grid.Row="0" Text="{Binding FatherTitle}"  Width="145"/>
+                                                            <Label Content="Father's First Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="1" VerticalAlignment="Center" Height="26" Width="146"/>
+                                                            <TextBox Name="uFatherFirstName"  Grid.Column="1" HorizontalAlignment="Left" Margin="3,4,0,4" Grid.Row="1" Text="{Binding FatherFirstName}"  Width="145" />
+                                                            <Label Content="Father's Last Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="2" VerticalAlignment="Center" Height="26" Width="146"/>
+                                                            <TextBox Name="uFatherLastName"  Grid.Column="1" HorizontalAlignment="Left" Margin="3,4,0,4" Grid.Row="2" Text="{Binding FatherLastName}"  Width="145" />
+                                                            <Label Content="Father's Phone No:" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="3" VerticalAlignment="Center" Height="26" Width="144"/>
+                                                            <TextBox Name="uFatherPhone" Grid.Column="1" HorizontalAlignment="Left" Margin="3,4,0,4" Grid.Row="3" Text="{Binding FatherPhone}"  Width="145" />
+
+                                                            <Label Content="Email:" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="7" VerticalAlignment="Center" Height="26" Width="91"/>
+                                                            <TextBox Name="uEmail" Grid.Column="1" HorizontalAlignment="Left" Margin="3,4,0,4" Grid.Row="7" Text="{Binding Email}"  Width="145" />
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </GroupBox>
+                                                <GroupBox   Header="Mother's Details" HorizontalAlignment="Left" VerticalAlignment="Top" Width="330" Height="226" Margin="25,0,0,0">
+                                                    <StackPanel>
+                                                        <Grid Margin="10,10,0,10" x:Name="MotherDetailsGrid">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Label Content="Mother's Title" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="0" VerticalAlignment="Center" Height="26" Width="145"/>
+                                                            <TextBox Name="uMotherTitle"  Grid.Column="1" HorizontalAlignment="Left" Margin="4,4,0,4" Grid.Row="0" Text="{Binding MotherTitle}"  Width="145"/>
+                                                            <Label Content="Mother's First Name" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="1" VerticalAlignment="Center" Height="26" Width="146"/>
+                                                            <TextBox Name="uMotherFirstName"  Grid.Column="1" HorizontalAlignment="Left" Margin="3,4,0,4" Grid.Row="1" Text="{Binding MotherFirstName}"  Width="145" />
+                                                            <Label Content="Mother's Last Name" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="2" VerticalAlignment="Center" Height="26" Width="146"/>
+                                                            <TextBox Name="uMotherLastName" Grid.Column="1" HorizontalAlignment="Left" Margin="3,4,0,4" Grid.Row="2" Text="{Binding MotherLastName}"  Width="145"/>
+                                                            <Label Content="Mother's Phone No" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="3" VerticalAlignment="Center" Height="26" Width="144"/>
+                                                            <TextBox Name="uMotherPhone" Grid.Column="1" HorizontalAlignment="Left" Margin="3,4,0,4" Grid.Row="3" Text="{Binding MotherPhone}"  Width="145" />
+
+                                                            <!--<Label Content="Email" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="7" VerticalAlignment="Center" Height="26" Width="91"/>-->
+                                                            <!--<TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="3,4,0,4" Grid.Row="7" Text="{Binding Email}"  Width="145" />-->
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </GroupBox>
+                                            </WrapPanel>
+                                        </StackPanel>
+                                        <Button Width="100" Content="Update" Name="UpdateParent" Margin="0,20" Click="UpdateParent_Click_1"/>
+
+                                        <!--</StackPanel>-->
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <GroupBox Header="Ward(s)" Height="226" Width="330" Margin="0">
+                                            <StackPanel Margin="5">
+                                                <ListView Name="listViewStudents" ItemsSource="{Binding ElementName=ParentListBox, Path=SelectedItem.Students}">
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding FullName}" Width="200"/>
+                                                            <GridViewColumn Header="Class" DisplayMemberBinding="{Binding Class}" Width="100"/>
+                                                        </GridView>
+                                                    </ListView.View>
+                                                </ListView>
+                                                <!--<TextBlock Margin="0,10,0,0"/>
+                                        <TextBlock Margin="0,10,0,0"/>
+                                        <TextBlock Margin="0,10,0,0"/>
+                                        <TextBlock Margin="0,10,0,0"/>
+                                        <TextBlock Margin="0,10,0,0"/>-->
+                                                <StackPanel/>
+                                            </StackPanel>
+                                        </GroupBox>
+                                    </StackPanel>
+                                </WrapPanel>
+                            </StackPanel>
+                            
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+            </TabItem>
+            <TabItem DataContext="{Binding}" Width="145" IsEnabled="False"  Header="Ledger" x:Name="LedgerTab" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"  >
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Ledger" Margin="0,0,10,0"/>
+                            <Rectangle  Width="30" Height="30" Margin="0,0,0,0" Fill="{Binding RelativeSource={RelativeSource AncestorType=TabItem}, Path=Foreground}">
+                                <Rectangle.OpacityMask >
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_book}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <Border BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="0,0,0,0">
+                    <StackPanel Height="630" HorizontalAlignment="Center" Width="900" VerticalAlignment="Top" Margin="0,10,0,0">
+                        <TabControl>
+                            <TabItem Header="Class" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" >
+                                <StackPanel>
+                                    <WrapPanel HorizontalAlignment="Center" Margin="20">
+                                        <Label Content="Class" Width="50"/>
+                                        <ComboBox x:Name="LegderClassList"  IsSynchronizedWithCurrentItem="True"  IsEditable="True" ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedIndex="0"  SelectedValuePath="StudentClassId" Width="109" HorizontalAlignment="Left" MaxDropDownHeight="255"></ComboBox>
+                                        <Label Content="Term" Width="49"/>
+                                        <TextBox Name="TermTextBox" Height="22" Width="49"/>
+                                        <Label Content="Session"/>
+                                        <TextBox Name="SessionTextBox" Height="22" Width="120"/>
+                                        <!--<Button x:Name="OldBill" Content="Old Student Bill" Margin="5,0,0,0" Width="120" Click="OldBill_Click"/>
+                                <Button Name="NewBill" Content="New Student Bill" Margin="5,0,0,0" Width="120" Click="NewBill_Click" />-->
+                                        <Label Content="Count"/>
+                                        <TextBox Name="ClassCount" Height="22" Width="50" IsEnabled="False" Text="{Binding ElementName=LegderClassList, Path=SelectedItem.Count}"/>
+                                        <Button Name="Bill" Content="Bill" Margin="5,0,0,0" Width="120" Click="Bill_Click"/>
+                                    </WrapPanel>
+                                    <WrapPanel HorizontalAlignment="Center" Margin="5">
+                                        <Button Width="100" Margin="2" Content="Promote" Name="Promote" Click="Promote_Click_1"/>
+                                        <Button Width="100" Margin="2" Content="Withdraw" Name="Withdraw"/>
+                                    </WrapPanel>
+
+                                    <DataGrid ItemsSource="{Binding ElementName=LegderClassList, Path=SelectedItem.Students}" IsReadOnly="True" Name="StudentClassLedger" AutoGenerateColumns="False" Margin="5,15,0,0" Width="880" MaxWidth="880">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding FullName}"  Header="Student Name" Width="140"/>
+                                            <DataGridTextColumn Binding="{Binding Account.BalanceLastTerm, StringFormat={}{0:C}}"  Header="Last term bal" Width="140"/>
+                                            <DataGridTextColumn Binding="{Binding Account.Rebate, StringFormat={}{0:C}}" Header="Rebate" Width="85"/>
+                                            <DataGridTextColumn Binding="{Binding Account.Fees, StringFormat={}{0:C}}"  Header="Total" Width="87"/>
+                                            <DataGridTextColumn Binding="{Binding Account.DebitBalance, StringFormat={}{0:C}}" Header="DB Balance" Width="110"/>
+                                            <DataGridTextColumn Binding="{Binding Account.CreditBalance, StringFormat={}{0:C}}" Header="CR Balance" Width="115"/>
+                                            <DataGridTextColumn Binding="{Binding Account.FullyPaid, StringFormat={}{0:C}}" Header="Fully Paid?" />
+                                            <DataGridTemplateColumn Header="Payments" Width="90">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button  Content="Payments" Name="PaymentButton" Click="PaymentButton_Click_1" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Term" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                                <StackPanel DataContext="{Binding}" Name="TermPanel">
+                                    <WrapPanel HorizontalAlignment="Center" Margin="20">
+                                        <Label Content="Term" Width="49"/>
+                                        <ComboBox Name="TermTermTextBox" Height="22" Width="85">
+                                            <ComboBoxItem Content="1st"/>
+                                            <ComboBoxItem Content="2nd"/>
+                                            <ComboBoxItem Content="3rd"/>
+                                        </ComboBox>
+
+                                        <Label Content="Session"/>
+                                        <ComboBox Name="SessionTermTextBox" Height="22" Width="120" IsEditable="True" ItemsSource="{Binding}" DisplayMemberPath="AcademicYear" />
+                                    </WrapPanel>
+                                    <Button HorizontalAlignment="Center" Width="100" Content="Search" Name="SearchButton" Click="SearchButton_Click_1"/>
+                                    <Separator Margin="8"/>
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" MinWidth="113"/>
+                                            <ColumnDefinition Width="Auto" MinWidth="191"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Total Fees Payable" Margin="10"/>
+                                        <TextBox Grid.Column="1" Grid.Row="0" Name="TotalFeesPayableTextBox" Margin="10" HorizontalContentAlignment="Right"/>
+                                        <Label Grid.Column="0" Grid.Row="1" Content="Total Fees Paid" Margin="10" />
+                                        <TextBox Grid.Column="1" Grid.Row="1" Name="TotalFeesPaidTextBox" Margin="10" HorizontalContentAlignment="Right"/>
+                                        <Label Grid.Column="0" Grid.Row="2" Content="Total Fees Unpaid" Margin="10"/>
+                                        <TextBox Grid.Column="1" Grid.Row="2" Name="TotalFeesUnpaidTextBox" Margin="10" HorizontalContentAlignment="Right"/>
+                                        <Label Grid.Column="0" Grid.Row="3" Content="New Students" Margin="10"/>
+                                        <TextBox Grid.Column="1" Grid.Row="3" Name="NewStudentTextBox" Margin="10" HorizontalContentAlignment="Right"/>
+                                    </Grid>
+                                    <Button HorizontalAlignment="Center" Width="100" Margin="20" Content="Refresh" Name="Refresh" Click="Refresh_Click_1"/>
+                                </StackPanel>
+                            </TabItem>
+                        </TabControl>
+
+                    </StackPanel>
+                </Border>
+            </TabItem>
+            <!--<TabItem Header="Settings" Width="150" IsEnabled="False">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Settings" Margin="0,0,10,0"/>
+                            <Rectangle  Width="30" Height="30" Margin="0,0,0,0" Fill="{Binding RelativeSource={RelativeSource AncestorType=TabItem}, Path=Foreground}">
+                                <Rectangle.OpacityMask >
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+            </TabItem>-->
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,51 @@
+﻿<Controls:MetroWindow x:Class="SchoolManager.UI.Settings"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" Height="320" Width="300" Name="SettingsWindow" Loaded="SettingsWindow_Loaded" Closed="SettingsWindow_Closed" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <TabControl Name="SettingsTabControl">
+            <TabItem Header ="term">
+                <StackPanel>
+                    <Label Content="Term" Margin="3"/>
+                    <ComboBox IsEditable="False" SelectedIndex="0" Margin="3" Name="TermComboBox">
+                        <ComboBoxItem Content="1st"/>
+                        <ComboBoxItem Content="2nd"/>
+                        <ComboBoxItem Content="3rd"/>                       
+                    </ComboBox>
+                    <Label Content="Session" Margin="3,8,3,3"/>
+                    
+                    <TextBox Name="SessionTextBox" Margin="3"/>  
+                    <Button Content="Begin" Name="BeginTerm" Width="50" Margin="10"  HorizontalAlignment="Center" Click="BeginTerm_Click_1"/>
+                    <!--<Button Content="End" Name="EndTerm" Width="50" Margin="10"  HorizontalAlignment="Right" Click="EndTerm_Click_1"/>-->           
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="password">
+                <StackPanel>
+                    <Label Content="Change Password" Margin="5"/>
+                    <Separator/>
+                    <TextBox Controls:TextBoxHelper.Watermark="Username" Margin="5" Name="Username"/>
+                    <PasswordBox Controls:TextBoxHelper.Watermark="Old Password" Margin="5" Name="OldPassword"/>
+                    <PasswordBox Controls:TextBoxHelper.Watermark="New Password" Margin="5" Name="NewPassword"/>
+                    <PasswordBox Controls:TextBoxHelper.Watermark="Confirm Password" Margin="5" Name="ConfirmPassword"/>
+                    <WrapPanel HorizontalAlignment="Center" Margin="10">
+                        <Button Content="Save" Name="SaveNewPassword" Width="65" Margin="5" Click="SaveNewPassword_Click_1"/>
+                        <Button Content="Cancel" Name="CancelPasswordChange" Width="65" Margin="5" Click="CancelPasswordChange_Click_1" />
+                    </WrapPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="others">
+                <StackPanel>     
+                    <Controls:ToggleSwitch Name="NFSswitch" Header="New Student Feature" Margin="0,0,109,0" IsChecked="True" />     
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>
